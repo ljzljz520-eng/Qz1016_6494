@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2307,
+    "production_files": 21,
+    "production_packages": 8,
+    "test_files": 9,
+    "production_functions": 88,
+    "decision_points": 36
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Record", "User", "Event", "Audit"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": ["receive alert", "validate line and actor", "save Record and Event", "display latest state"],
+      "test": "TestRecordFlow43"
+    },
+    {
+      "steps": ["register review", "apply decision", "archive Audit evidence", "query timeline"],
+      "test": "TestWorkflowTwo"
+    },
+    {
+      "steps": ["submit processing update", "apply status transition", "notify active users", "track after reopen"],
+      "test": "TestWorkflowThree"
+    }
+  ]
+}
